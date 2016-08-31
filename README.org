@@ -9,21 +9,29 @@
 * Table of Contents                                        :TOC_4_org:noexport:
  - [[Description][Description]]
  - [[Install][Install]]
- - [[Key bindings][Key bindings]]
 
 * Description
-This layer does wonderful things:
-  - thing01
+This layer aims to provide support for the Crystal language with the following features:
+  - syntax highlighting and indentation (provided by [[https://github.com/dotmilk/emacs-crystal-mode][dotmilk's package]]).
+  - automatic file formatting
+  - autocompletion snippets
 
 * Install
-To use this contribution add it to your =~/.spacemacs=
+To use this layer first clone it into your =~/.emacs.d/private= directory:
+
+#+BEGIN_SRC shell
+git clone git@github.com:juanedi/crystal-spacemacs-layer.git ~/.emacs.d/private/crystal
+#+END_SRC
+
+Then enable the layer in your =~/.spacemacs=:
+# To use this contribution add it to your =~/.spacemacs=
 
 #+begin_src emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(crystal))
 #+end_src
 
-* Key bindings
+# * Key bindings
 
-| Key Binding     | Description    |
-|-----------------+----------------|
-| ~<SPC> x x x~   | Does thing01   |
+# | Key Binding     | Description    |
+# |-----------------+----------------|
+# | ~<SPC> x x x~   | Does thing01   |
