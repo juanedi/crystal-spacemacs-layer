@@ -9,29 +9,12 @@
 ;;
 ;;; License: GPLv3
 
-;;; Commentary:
-
-;; See the Spacemacs documentation and FAQs for instructions on how to implement
-;; a new layer:
-;;
-;;   SPC h SPC layers RET
-;;
-;;
-;; Briefly, each package to be installed or configured by this layer should be
-;; added to `crystal-packages'. Then, for each package PACKAGE:
-;;
-;; - If PACKAGE is not referenced by any other Spacemacs layer, define a
-;;   function `crystal/init-PACKAGE' to load and initialize the package.
-
-;; - Otherwise, PACKAGE is already referenced by another Spacemacs layer, so
-;;   define the functions `crystal/pre-init-PACKAGE' and/or
-;;   `crystal/post-init-PACKAGE' to customize the package as it is loaded.
-
 ;;; Code:
 
 (defconst crystal-packages
   '(
     (crystal-mode :location (recipe :fetcher github :repo "dotmilk/emacs-crystal-mode"))
+    company
     )
   )
 
@@ -51,5 +34,8 @@
   ;; TODO: this should be optional
   ;; TODO: register hook only for crystal files?
   (add-hook 'after-save-hook #'crystal/format-file))
+
+(defun crystal/post-init-company ()
+  (spacemacs|add-company-hook crystal-mode))
 
 ;;; packages.el ends here
