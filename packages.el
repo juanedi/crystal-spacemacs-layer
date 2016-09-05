@@ -14,26 +14,38 @@
 (defconst crystal-packages
   '(
     (crystal-mode :location (recipe :fetcher github :repo "dotmilk/emacs-crystal-mode"))
+    popwin
     company
     )
   )
 
-(defun crystal/format-file ()
+(defvar crystal--format-buffer-name "*crystal formatter*")
+
+(defun crystal--format-output-buffer ()
+  (when (get-buffer crystal--format-buffer-name)
+    (kill-buffer crystal--format-buffer-name))
+  (popwin:get-buffer crystal--format-buffer-name :create))
+
+(defun crystal--run-formatter (buffer-file-name output-buffer)
+  (call-process-shell-command (format "crystal tool format %s" buffer-file-name) nil output-buffer t))
+
+(defun crystal--format-file ()
   (when (equal 'crystal-mode major-mode)
-    (let ((output-buffer "*crystal formatter*"))
-      (when (get-buffer output-buffer) (kill-buffer output-buffer))
-      (get-buffer-create output-buffer)
-      (let ((exit-status (call-process-shell-command (format "crystal tool format %s" buffer-file-name) nil output-buffer t)))
+    (let ((output-buffer (crystal--format-output-buffer)))
+      (let ((exit-status (crystal--run-formatter buffer-file-name output-buffer)))
         (if (eq 0 exit-status)
             (revert-buffer t t)
           (popwin:popup-buffer output-buffer))))))
 
+(defun crystal/pre-init-popwin ()
+  (spacemacs|use-package-add-hook popwin
+    :post-config
+    (push '("*crystal formatter*" :tail t :noselect t) popwin:special-display-config)))
+
 (defun crystal/init-crystal-mode ())
 
 (defun crystal/post-init-crystal-mode ()
-  ;; TODO: this should be optional
-  ;; TODO: register hook only for crystal files?
-  (add-hook 'after-save-hook #'crystal/format-file))
+  (add-hook 'after-save-hook #'crystal--format-file))
 
 (defun crystal/post-init-company ()
   (spacemacs|add-company-hook crystal-mode))
