@@ -30,7 +30,8 @@
   (call-process-shell-command (format "crystal tool format %s" buffer-file-name) nil output-buffer t))
 
 (defun crystal--format-file ()
-  (when (equal 'crystal-mode major-mode)
+  (when (and (configuration-layer/package-usedp 'popwin)
+             (equal 'crystal-mode major-mode))
     (let ((output-buffer (crystal--format-output-buffer)))
       (let ((exit-status (crystal--run-formatter buffer-file-name output-buffer)))
         (if (eq 0 exit-status)
