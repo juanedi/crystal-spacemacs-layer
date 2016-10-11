@@ -12,7 +12,7 @@
 
 * Description
 This layer aims to provide support for the Crystal language with the following features:
-  - syntax highlighting and indentation (provided by [[https://github.com/dotmilk/emacs-crystal-mode][dotmilk's package]]).
+  - syntax highlighting and indentation (provided by [[https://github.com/ggiraldez/emacs-crystal-mode/][an external package]]).
   - automatic file formatting
   - autocompletion snippets
 

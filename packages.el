@@ -13,7 +13,7 @@
 
 (defconst crystal-packages
   '(
-    (crystal-mode :location (recipe :fetcher github :repo "dotmilk/emacs-crystal-mode"))
+    (crystal-mode :location (recipe :fetcher github :repo "ggiraldez/emacs-crystal-mode"))
     popwin
     company
     )
